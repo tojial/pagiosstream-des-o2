@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Beauty Bolivia | Productos de Belleza</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #fff7f9;
+      --bg-alt: #ffeef3;
+      --surface: #ffffff;
+      --text: #2b1a24;
+      --text-muted: #8a6b7a;
+      --primary: #e91e63;
+      --primary-hover: #c2185b;
+      --accent: #ffb6c1;
+      --gold: #d4a373;
+      --green: #25a35a;
+      --danger: #e63946;
+      --border: #f4d6e0;
+      --shadow: 0 4px 20px rgba(233, 30, 99, 0.08);
+      --shadow-lg: 0 12px 40px rgba(233, 30, 99, 0.18);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --font-title: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, .logo { font-family: var(--font-title); }
+
+    /* ============ HEADER ============ */
+    .header { position: sticky; top: 0; z-index: 100; background: rgba(255, 247, 249, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header__inner { max-width: 1250px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 20px; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; margin-right: auto; }
+    .logo i { color: var(--gold); }
+    .logo small { font-size: 0.65rem; background: var(--primary); color: #fff; padding: 2px 6px; border-radius: 4px; font-family: var(--font-body); font-weight: 600; letter-spacing: .5px; }
+
+    .nav { display: flex; gap: 28px; }
+    .nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color .3s; }
+    .nav a:hover { color: var(--primary); }
+
+    .header__actions { display: flex; align-items: center; gap: 14px; }
+    .cart-btn { position: relative; background: var(--primary); color: #fff; border: none; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; transition: transform .3s, box-shadow .3s; box-shadow: 0 4px 14px rgba(233,30,99,.35); }
+    .cart-btn:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(233,30,99,.5); }
+    .cart-count { position: absolute; top: -4px; right: -4px; background: var(--gold); color: #fff; font-size: 0.7rem; font-weight: 700; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+    .menu-toggle { display: none; background: none; border: 1px solid var(--border); width: 46px; height: 46px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: var(--primary); }
+
+    /* ============ HERO ============ */
+    .hero { max-width: 1250px; margin: 0 auto; padding: 70px 24px 50px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+    .hero__text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); line-height: 1.1; margin-bottom: 18px; }
+    .hero__text h1 span { color: var(--primary); }
+    .hero__text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 26px; max-width: 46ch; }
+    .hero__btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero__image { background: linear-gradient(135deg, var(--accent), var(--bg-alt)); border-radius: 50% 50% 48% 52% / 52% 48% 52% 48%; aspect-ratio: 1/1; display: grid; place-items: center; font-size: 9rem; color: var(--primary); box-shadow: var(--shadow-lg); animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+    /* ============ BOTONES ============ */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 50px; border: none; font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: all .3s; }
+    .btn--primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(233,30,99,.3); }
+    .btn--primary:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 8px 26px rgba(233,30,99,.45); }
+    .btn--ghost { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn--ghost:hover { background: var(--primary); color: #fff; }
+    .btn--wa { background: #25d366; color: #fff; box-shadow: 0 4px 16px rgba(37,211,102,.35); }
+    .btn--wa:hover { background: #1ebe5b; transform: translateY(-3px); box-shadow: 0 8px 26px rgba(37,211,102,.5); }
+
+    /* ============ SECCIONES ============ */
+    .section { max-width: 1250px; margin: 0 auto; padding: 60px 24px; }
+    .section__head { text-align: center; margin-bottom: 40px; }
+    .section__title { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 8px; }
+    .section__subtitle { color: var(--text-muted); font-size: 1rem; }
+
+    /* ============ FILTROS ============ */
+    .filters-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 18px; }
+    .pill { padding: 8px 20px; border-radius: 50px; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-weight: 500; font-size: 0.88rem; cursor: pointer; transition: all .3s; font-family: var(--font-body); }
+    .pill:hover { border-color: var(--primary); color: var(--primary); }
+    .pill.active { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 14px rgba(233,30,99,.3); }
+
+    .search-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+    .search-bar input, .search-bar select { padding: 11px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); font-family: var(--font-body); font-size: 0.9rem; color: var(--text); outline: none; transition: border-color .3s, box-shadow .3s; }
+    .search-bar input:focus, .search-bar select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(233,30,99,.12); }
+    .search-bar input { flex: 1; min-width: 200px; max-width: 320px; }
+
+    /* ============ GRID PRODUCTOS ============ */
+    .products-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s; display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .product-card__media { position: relative; height: 180px; display: grid; place-items: center; background: linear-gradient(135deg, var(--bg-alt), #fff); font-size: 4rem; color: var(--primary); }
+    .product-card__badge { position: absolute; top: 12px; left: 12px; background: var(--gold); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: .5px; }
+    .product-card__badge--sale { background: var(--danger); }
+    .product-card__fav { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,.85); border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: var(--text-muted); transition: color .3s, transform .3s; }
+    .product-card__fav:hover, .product-card__fav.active { color: var(--primary); transform: scale(1.15); }
+    .product-card__body { padding: 16px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+    .product-card__cat { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
+    .product-card__name { font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 6px; }
+    .product-card__desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; flex: 1; }
+    .product-card__stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 8px; }
+    .product-card__stars span { color: var(--text-muted); margin-left: 4px; }
+    .product-card__footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; }
+    .product-card__price { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+    .product-card__price small { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; font-weight: 400; margin-left: 6px; }
+    .add-cart { background: var(--primary); color: #fff; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1rem; transition: transform .25s, background .25s; flex-shrink: 0; }
+    .add-cart:hover { background: var(--primary-hover); transform: scale(1.12) rotate(8deg); }
+    .no-results { text-align: center; color: var(--text-muted); grid-column: 1/-1; padding: 40px; font-size: 1rem; }
+
+    /* ============ CARRITO ============ */
+    .cart-overlay { position: fixed; inset: 0; background: rgba(43, 26, 36, .45); backdrop-filter: blur(3px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .cart-overlay.active { opacity: 1; pointer-events: auto; }
+    .cart-panel { position: fixed; top: 0; right: 0; width: 400px; max-width: 92vw; height: 100vh; background: var(--surface); z-index: 1001; box-shadow: -10px 0 40px rgba(0,0,0,.15); transform: translateX(100%); transition: transform .35s ease; display: flex; flex-direction: column; }
+    .cart-panel.active { transform: translateX(0); }
+    .cart-panel__head { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+    .cart-panel__head h3 { font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+    .cart-close { background: none; border: none; font-size: 1.3rem; color: var(--text-muted); cursor: pointer; transition: color .3s; }
+    .cart-close:hover { color: var(--danger); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px 22px; }
+    .cart-empty { text-align: center; color: var(--text-muted); padding: 50px 10px; font-size: 0.9rem; }
+    .cart-empty i { font-size: 3rem; color: var(--accent); display: block; margin-bottom: 14px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--border); animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .cart-item__icon { width: 54px; height: 54px; border-radius: 12px; flex-shrink: 0; background: linear-gradient(135deg, var(--bg-alt), #fff); display: grid; place-items: center; font-size: 1.5rem; color: var(--primary); }
+    .cart-item__info { flex: 1; min-width: 0; }
+    .cart-item__info h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+    .cart-item__info p { font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+    .cart-item__qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-item__qty button { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; font-size: 0.8rem; transition: all .2s; }
+    .cart-item__qty button:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .cart-item__qty span { font-size: 0.85rem; font-weight: 600; min-width: 20px; text-align: center; }
+    .cart-item__remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; align-self: flex-start; transition: color .3s; }
+    .cart-item__remove:hover { color: var(--danger); }
+    .cart-panel__footer { padding: 18px 22px 22px; border-top: 1px solid var(--border); background: var(--bg); }
+    .cart-total-row { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; margin-bottom: 14px; }
+    .cart-total-row span:last-child { color: var(--primary); font-size: 1.3rem; }
+    .btn-checkout { width: 100%; padding: 14px; border-radius: var(--radius-sm); background: var(--primary); color: #fff; border: none; font-family: var(--font-body); font-weight: 600; font-size: 1rem; cursor: pointer; transition: all .3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-checkout:hover { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(233,30,99,.4); }
+    .btn-checkout:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ============ MODAL CHECKOUT ============ */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(43,26,36,.55); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--surface); border-radius: var(--radius); width: 480px; max-width: 100%; max-height: 92vh; overflow-y: auto; padding: 30px; box-shadow: var(--shadow-lg); position: relative; animation: modalIn .3s ease; }
+    @keyframes modalIn { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+    .modal__close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.3rem; color: var(--text-muted); cursor: pointer; transition: color .3s; }
+    .modal__close:hover { color: var(--danger); }
+    .modal h3 { font-size: 1.4rem; margin-bottom: 6px; text-align: center; }
+    .modal p.modal__sub { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-bottom: 22px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 5px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg); font-family: var(--font-body); font-size: 0.9rem; color: var(--text); outline: none; transition: border-color .3s, box-shadow .3s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(233,30,99,.12); }
+    .form-group input.invalid, .form-group textarea.invalid, .form-group select.invalid { border-color: var(--danger); }
+    .form-group input.valid, .form-group textarea.valid, .form-group select.valid { border-color: var(--green); }
+    .form-error { font-size: 0.75rem; color: var(--danger); min-height: 16px; margin-top: 3px; }
+    .modal-summary { background: var(--bg-alt); border-radius: var(--radius-sm); padding: 14px 16px; margin: 16px 0; font-size: 0.88rem; }
+    .modal-summary div { display: flex; justify-content: space-between; padding: 4px 0; }
+    .modal-summary div:last-child { border-top: 1px solid var(--border); margin-top: 6px; padding-top: 10px; font-weight: 700; font-size: 1rem; color: var(--primary); }
+    .btn-submit-order { width: 100%; padding: 14px; border-radius: var(--radius-sm); background: var(--primary); color: #fff; border: none; font-family: var(--font-body); font-weight: 600; font-size: 1rem; cursor: pointer; transition: all .3s; margin-top: 6px; }
+    .btn-submit-order:hover { background: var(--primary-hover); box-shadow: 0 6px 22px rgba(233,30,99,.4); }
+
+    /* ============ TOAST ============ */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%); background: var(--text); color: #fff; padding: 14px 26px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 3000; display: flex; align-items: center; gap: 10px; transition: transform .4s cubic-bezier(.2,.9,.3,1.3); white-space: nowrap; }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--green); font-size: 1.1rem; }
+
+    /* ============ EMPRESA / REDES ============ */
+    .empresa-section { background: var(--bg-alt); padding: 60px 24px; }
+    .empresa-grid { max-width: 1250px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .empresa-info h3 { font-size: 1.6rem; margin-bottom: 14px; }
+    .empresa-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; }
+    .empresa-info strong { color: var(--primary); }
+    .empresa-info i { color: var(--primary); width: 20px; text-align: center; margin-right: 6px; }
+    .empresa-social { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+    .empresa-social a { width: 52px; height: 52px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: grid; place-items: center; font-size: 1.2rem; color: var(--primary); text-decoration: none; transition: all .3s; }
+    .empresa-social a:hover { background: var(--primary); color: #fff; transform: translateY(-5px) scale(1.08); box-shadow: var(--shadow-lg); }
+    .empresa-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; text-align: center; box-shadow: var(--shadow); transition: transform .3s; }
+    .stat:hover { transform: translateY(-4px); }
+    .stat__num { display: block; font-family: var(--font-title); font-size: 2rem; color: var(--primary); font-weight: 700; }
+    .stat__label { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* ============ FOOTER ============ */
+    .footer { background: var(--text); color: #f4d6e0; padding: 40px 24px 24px; }
+    .footer__inner { max-width: 1250px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+    .footer h4 { font-family: var(--font-title); color: #fff; margin-bottom: 12px; }
+    .footer p, .footer a { font-size: 0.85rem; color: #f4d6e0; text-decoration: none; display: block; margin-bottom: 6px; opacity: .85; }
+    .footer a:hover { color: var(--accent); opacity: 1; }
+    .footer__social { display: flex; gap: 12px; margin-top: 10px; }
+    .footer__social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08); display: grid; place-items: center; font-size: 1rem; transition: background .3s, transform .3s; }
+    .footer__social a:hover { background: var(--primary); transform: translateY(-3px); }
+    .footer__bottom { max-width: 1250px; margin: 24px auto 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); text-align: center; font-size: 0.8rem; opacity: .7; }
+    .footer__bottom .flag { font-size: 1rem; }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 40px; }
+      .hero__text p { margin-left: auto; margin-right: auto; }
+      .hero__btns { justify-content: center; }
+      .hero__image { max-width: 320px; margin: 0 auto; font-size: 6rem; }
+      .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); flex-direction: column; gap: 0; border-bottom: 1px solid var(--border); box-shadow: var(--shadow); padding: 10px 0; }
+      .nav.open { display: flex; }
+      .nav a { padding: 14px 24px; width: 100%; text-align: center; border-bottom: 1px solid var(--border); }
+      .menu-toggle { display: block; }
+      .empresa-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 40px 16px; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+      .product-card__media { height: 130px; font-size: 3rem; }
+      .cart-panel { width: 100vw; }
+      .header__inner { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       HEADER con menú hamburguesa (.slideToggle) + carrito
+       ================================================================ -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-spa"></i> Glow Beauty <small>BO</small>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav class="nav" id="mainNav">
+        <a href="#productos">Productos</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#empresa">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       HERO
+       ================================================================ -->
+  <section class="hero">
+    <div class="hero__text">
+      <h1>Realza tu <span>belleza</span> natural</h1>
+      <p>Descubre maquillaje, skincare y fragancias premium. Productos cruelty-free, envío gratis en La Paz desde Bs 200.</p>
+      <div class="hero__btns">
+        <a href="#productos" class="btn btn--primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Ver productos</a>
+        <a href="#empresa" class="btn btn--ghost"><i class="fa-solid fa-store"></i> Sobre nosotros</a>
+      </div>
+    </div>
+    <div class="hero__image"><i class="fa-solid fa-spa"></i></div>
+  </section>
+
+  <!-- ================================================================
+       CRITERIO 1: CATÁLOGO INTERACTIVO con jQuery
+       ================================================================ -->
+  <section class="section" id="productos">
+    <div class="section__head">
+      <h2 class="section__title">Nuestros Productos</h2>
+      <p class="section__subtitle">Filtra por categoría, busca y ordena — todo en tiempo real · Precios en Bs</p>
+    </div>
+
+    <div class="filters-bar" id="categoryPills">
+      <button class="pill active" data-cat="todos">Todos</button>
+      <button class="pill" data-cat="maquillaje">Maquillaje</button>
+      <button class="pill" data-cat="skincare">Skincare</button>
+      <button class="pill" data-cat="perfume">Perfumes</button>
+      <button class="pill" data-cat="cabello">Cabello</button>
+      <button class="pill" data-cat="accesorios">Accesorios</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar producto..." />
+      <select id="sortSelect">
+        <option value="default">Ordenar por...</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="nombre">Nombre A-Z</option>
+      </select>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- ================================================================
+       CRITERIO 2: EFECTOS DE ANIMACIÓN (.fadeToggle)
+       ================================================================ -->
+  <section class="section" id="categorias" style="background:var(--bg-alt); border-radius:40px; max-width:1200px;">
+    <div class="section__head">
+      <h2 class="section__title">Categorías</h2>
+      <p class="section__subtitle">Haz clic para mostrar u ocultar</p>
+      <button class="btn btn--ghost" id="toggleCategorias" style="margin-top:14px;">
+        <i class="fa-solid fa-eye"></i> Mostrar / Ocultar categorías
+      </button>
+    </div>
+
+    <div class="products-grid" id="categoriasContent">
+      <div class="product-card" style="padding:30px; text-align:center; align-items:center;">
+        <div style="font-size:3rem; color:var(--primary); margin-bottom:10px;">💄</div>
+        <h3 class="product-card__name">Maquillaje</h3>
+        <p class="product-card__desc">Labiales, bases, sombras y más.</p>
+      </div>
+      <div class="product-card" style="padding:30px; text-align:center; align-items:center;">
+        <div style="font-size:3rem; color:var(--primary); margin-bottom:10px;">🧴</div>
+        <h3 class="product-card__name">Skincare</h3>
+        <p class="product-card__desc">Cremas, sérums y protectores solares.</p>
+      </div>
+      <div class="product-card" style="padding:30px; text-align:center; align-items:center;">
+        <div style="font-size:3rem; color:var(--primary); margin-bottom:10px;">🌸</div>
+        <h3 class="product-card__name">Perfumes</h3>
+        <p class="product-card__desc">Fragancias florales y amaderadas.</p>
+      </div>
+      <div class="product-card" style="padding:30px; text-align:center; align-items:center;">
+        <div style="font-size:3rem; color:var(--primary); margin-bottom:10px;">💇‍♀️</div>
+        <h3 class="product-card__name">Cabello</h3>
+        <p class="product-card__desc">Shampoos, mascarillas y aceites.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CRITERIO 5: REDES SOCIALES + DATOS DE LA MICROEMPRESA (BOLIVIA)
+       ================================================================ -->
+  <section class="empresa-section" id="empresa">
+    <div class="empresa-grid">
+      <div class="empresa-info">
+        <h3>Sobre Glow Beauty Bolivia 🇧🇴</h3>
+        <p><strong>Glow Beauty Store</strong> es una microempresa boliviana con sede en La Paz, dedicada a la venta de productos de belleza premium, cruelty-free y accesibles para todos.</p>
+        <p><i class="fa-solid fa-location-dot"></i> Av. 6 de Agosto #123, Sopocachi, La Paz – Bolivia</p>
+        <p><i class="fa-solid fa-phone"></i> +591 700 12345</p>
+        <p><i class="fa-solid fa-envelope"></i> hola@glowbeauty.com.bo</p>
+        <p><i class="fa-solid fa-clock"></i> Lun–Sáb: 9:00 – 20:00 (hora Bolivia)</p>
+        <p><i class="fa-solid fa-truck-fast"></i> Envíos a todo el país (La Paz, Santa Cruz, Cochabamba, etc.)</p>
+        <p><i class="fa-solid fa-money-bill-wave"></i> Aceptamos QR Simple, transferencias y pago contra entrega.</p>
+
+        <div class="empresa-social">
+          <a href="https://instagram.com/glowbeautybo" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.com/@glowbeautybo" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://facebook.com/glowbeautybo" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://wa.me/59170012345" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://youtube.com/@glowbeautybo" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="empresa-stats">
+        <div class="stat"><span class="stat__num">+500</span><span class="stat__label">Clientas felices</span></div>
+        <div class="stat"><span class="stat__num">+80</span><span class="stat__label">Productos</span></div>
+        <div class="stat"><span class="stat__num">100%</span><span class="stat__label">Cruelty-free</span></div>
+        <div class="stat"><span class="stat__num">24h</span><span class="stat__label">Envío en La Paz</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CRITERIO 4: FORMULARIO CON VALIDACIONES COMPLETAS
+       ================================================================ -->
+  <section class="section" id="contacto">
+    <div class="section__head">
+      <h2 class="section__title">Contáctanos</h2>
+      <p class="section__subtitle">Déjanos tus datos y te responderemos pronto</p>
+    </div>
+
+    <form id="contactForm" style="max-width:600px; margin:0 auto; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; box-shadow:var(--shadow);" novalidate>
+      <div class="form-group">
+        <label for="cName2">Nombre completo *</label>
+        <input type="text" id="cName2" placeholder="Tu nombre" />
+        <div class="form-error" id="errName2"></div>
+      </div>
+      <div class="form-group">
+        <label for="cEmail2">Email *</label>
+        <input type="email" id="cEmail2" placeholder="tu@email.com" />
+        <div class="form-error" id="errEmail2"></div>
+      </div>
+      <div class="form-group">
+        <label for="cPhone2">Teléfono / WhatsApp *</label>
+        <input type="tel" id="cPhone2" placeholder="+591 700 00000" />
+        <div class="form-error" id="errPhone2"></div>
+      </div>
+      <div class="form-group">
+        <label for="cCity">Ciudad *</label>
+        <select id="cCity">
+          <option value="">Selecciona tu ciudad</option>
+          <option value="lapaz">La Paz</option>
+          <option value="santacruz">Santa Cruz</option>
+          <option value="cochabamba">Cochabamba</option>
+          <option value="sucre">Sucre</option>
+          <option value="oruro">Oruro</option>
+          <option value="potosi">Potosí</option>
+          <option value="tarija">Tarija</option>
+          <option value="beni">Beni</option>
+          <option value="pando">Pando</option>
+        </select>
+        <div class="form-error" id="errCity"></div>
+      </div>
+      <div class="form-group">
+        <label for="cMessage">Mensaje *</label>
+        <textarea id="cMessage" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+        <div class="form-error" id="errMessage"></div>
+      </div>
+      <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+        <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+      </button>
+    </form>
+  </section>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <h4>Glow Beauty Bolivia</h4>
+        <p>Tu tienda de belleza de confianza en Bolivia. Productos premium, cruelty-free y con envío rápido a todo el país.</p>
+        <p style="margin-top:10px;"><span class="flag">🇧🇴</span> Hecho en Bolivia</p>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p><i class="fa-solid fa-phone"></i> +591 700 12345</p>
+        <p><i class="fa-solid fa-envelope"></i> hola@glowbeauty.com.bo</p>
+        <p><i class="fa-solid fa-location-dot"></i> Av. 6 de Agosto #123, Sopocachi, La Paz</p>
+      </div>
+      <div>
+        <h4>Síguenos</h4>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">© <span id="year"></span> Glow Beauty Bolivia · Hecho con 💖 en La Paz 🇧🇴</div>
+  </footer>
+
+  <!-- CARRITO -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-panel" id="cartPanel" aria-label="Carrito de compras">
+    <div class="cart-panel__head">
+      <h3><i class="fa-solid fa-bag-shopping"></i> Tu carrito</h3>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-panel__footer">
+      <div class="cart-total-row"><span>Total:</span><span id="cartTotal">Bs 0.00</span></div>
+      <button class="btn-checkout" id="checkoutBtn">
+        <i class="fa-solid fa-credit-card"></i> Finalizar compra
+      </button>
+    </div>
+  </aside>
+
+  <!-- MODAL CHECKOUT -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal">
+      <button class="modal__close" id="modalClose" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+      <h3>Finalizar compra</h3>
+      <p class="modal__sub">Completa tus datos para confirmar el pedido</p>
+      <form id="checkoutForm" novalidate>
+        <div class="form-group">
+          <label for="cName">Nombre completo *</label>
+          <input type="text" id="cName" placeholder="Tu nombre" />
+          <div class="form-error" id="errName"></div>
+        </div>
+        <div class="form-group">
+          <label for="cEmail">Email *</label>
+          <input type="email" id="cEmail" placeholder="tu@email.com" />
+          <div class="form-error" id="errEmail"></div>
+        </div>
+        <div class="form-group">
+          <label for="cCity2">Ciudad *</label>
+          <select id="cCity2">
+            <option value="">Selecciona tu ciudad</option>
+            <option value="La Paz">La Paz</option>
+            <option value="Santa Cruz">Santa Cruz</option>
+            <option value="Cochabamba">Cochabamba</option>
+            <option value="Sucre">Sucre</option>
+            <option value="Oruro">Oruro</option>
+            <option value="Potosí">Potosí</option>
+            <option value="Tarija">Tarija</option>
+            <option value="Beni">Beni</option>
+            <option value="Pando">Pando</option>
+          </select>
+          <div class="form-error" id="errCity2"></div>
+        </div>
+        <div class="form-group">
+          <label for="cAddress">Dirección de envío *</label>
+          <input type="text" id="cAddress" placeholder="Calle, número, zona" />
+          <div class="form-error" id="errAddress"></div>
+        </div>
+        <div class="form-group">
+          <label for="cPhone">Teléfono / WhatsApp *</label>
+          <input type="tel" id="cPhone" placeholder="+591 700 00000" />
+          <div class="form-error" id="errPhone"></div>
+        </div>
+        <div class="form-group">
+          <label for="cPayment">Método de pago *</label>
+          <select id="cPayment">
+            <option value="">Selecciona método</option>
+            <option value="QR Simple">QR Simple</option>
+            <option value="Transferencia bancaria">Transferencia bancaria</option>
+            <option value="Pago contra entrega">Pago contra entrega</option>
+          </select>
+          <div class="form-error" id="errPayment"></div>
+        </div>
+        <div class="modal-summary" id="modalSummary"></div>
+        <button type="submit" class="btn-submit-order"><i class="fa-solid fa-check"></i> Confirmar pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Producto agregado</span>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      /* ============================================================
+         DATOS DE PRODUCTOS — PRECIOS EN BOLIVIANOS (Bs)
+         ============================================================ */
+      const productos = [
+        { id: 1,  nombre: 'Labial Mate Velvet',     cat: 'maquillaje', precio: 45,  antes: 60,  icon: 'fa-kiss',            desc: 'Larga duración, tono rosa intenso.',       rating: 4.8, badge: 'SALE' },
+        { id: 2,  nombre: 'Base Líquida HD',        cat: 'maquillaje', precio: 85,  antes: 0,   icon: 'fa-droplet',         desc: 'Cobertura natural, 24 tonos.',             rating: 4.6, badge: '' },
+        { id: 3,  nombre: 'Paleta de Sombras',      cat: 'maquillaje', precio: 110, antes: 140, icon: 'fa-palette',         desc: '12 tonos nude y shimmer.',                 rating: 4.9, badge: 'SALE' },
+        { id: 4,  nombre: 'Máscara de Pestañas',    cat: 'maquillaje', precio: 55,  antes: 0,   icon: 'fa-eye',             desc: 'Volumen extremo, resistente al agua.',     rating: 4.7, badge: '' },
+        { id: 5,  nombre: 'Sérum Vitamina C',       cat: 'skincare',   precio: 95,  antes: 120, icon: 'fa-flask',           desc: 'Ilumina y unifica el tono.',               rating: 4.9, badge: 'SALE' },
+        { id: 6,  nombre: 'Crema Hidratante',       cat: 'skincare',   precio: 65,  antes: 0,   icon: 'fa-jar',             desc: 'Hidratación 24h con ácido hialurónico.',   rating: 4.5, badge: '' },
+        { id: 7,  nombre: 'Protector Solar SPF50',  cat: 'skincare',   precio: 75,  antes: 0,   icon: 'fa-sun',             desc: 'Toque seco, sin residuos blancos.',        rating: 4.8, badge: 'NEW' },
+        { id: 8,  nombre: 'Agua Micelar',           cat: 'skincare',   precio: 40,  antes: 0,   icon: 'fa-water',           desc: 'Limpia y desmaquilla suavemente.',         rating: 4.4, badge: '' },
+        { id: 9,  nombre: 'Perfume Floral',         cat: 'perfume',    precio: 180, antes: 220, icon: 'fa-spray-can',       desc: 'Notas de jazmín y vainilla.',              rating: 4.9, badge: 'SALE' },
+        { id: 10, nombre: 'Eau de Parfum Amber',    cat: 'perfume',    precio: 210, antes: 0,   icon: 'fa-spray-can-sparkles', desc: 'Amaderado, elegante y duradero.',      rating: 4.7, badge: '' },
+        { id: 11, nombre: 'Body Mist Frutal',       cat: 'perfume',    precio: 60,  antes: 0,   icon: 'fa-leaf',            desc: 'Fresco, ideal para el día.',               rating: 4.3, badge: 'NEW' },
+        { id: 12, nombre: 'Shampoo Reparador',      cat: 'cabello',    precio: 55,  antes: 0,   icon: 'fa-pump-soap',       desc: 'Para cabello dañado, sin sulfatos.',       rating: 4.6, badge: '' },
+        { id: 13, nombre: 'Mascarilla Capilar',     cat: 'cabello',    precio: 70,  antes: 90,  icon: 'fa-spa',             desc: 'Nutrición profunda con keratina.',         rating: 4.8, badge: 'SALE' },
+        { id: 14, nombre: 'Aceite de Argán',        cat: 'cabello',    precio: 50,  antes: 0,   icon: 'fa-oil-can',         desc: 'Brillo y suavidad natural.',               rating: 4.5, badge: '' },
+        { id: 15, nombre: 'Brocha Set 5 pzs',       cat: 'accesorios', precio: 65,  antes: 0,   icon: 'fa-paintbrush',      desc: 'Cerdas suaves, incluye estuche.',          rating: 4.7, badge: '' },
+        { id: 16, nombre: 'Esponja Blender',        cat: 'accesorios', precio: 25,  antes: 0,   icon: 'fa-circle',          desc: 'Acabado impecable, sin marcas.',           rating: 4.4, badge: 'NEW' },
+        { id: 17, nombre: 'Neceser Glow',           cat: 'accesorios', precio: 80,  antes: 100, icon: 'fa-bag-shopping',    desc: 'Práctico y elegante para llevar.',         rating: 4.6, badge: 'SALE' },
+        { id: 18, nombre: 'Espejo LED Portátil',    cat: 'accesorios', precio: 90,  antes: 0,   icon: 'fa-lightbulb',       desc: 'Luz regulable, recargable USB.',           rating: 4.8, badge: '' }
+      ];
+
+      /* ============================================================
+         ESTADO
+         ============================================================ */
+      let carrito = JSON.parse(localStorage.getItem('glow_cart_bo') || '[]');
+      let categoriaActual = 'todos';
+      let busqueda = '';
+      let orden = 'default';
+
+      /* ============================================================
+         CRITERIO 1: RENDERIZAR PRODUCTOS con filtros dinámicos
+         ============================================================ */
+      function renderProductos() {
+        let lista = [...productos];
+        if (categoriaActual !== 'todos') lista = lista.filter(p => p.cat === categoriaActual);
+        if (busqueda.trim()) {
+          const q = busqueda.toLowerCase();
+          lista = lista.filter(p => p.nombre.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+        }
+        if (orden === 'precio-asc') lista.sort((a, b) => a.precio - b.precio);
+        else if (orden === 'precio-desc') lista.sort((a, b) => b.precio - a.precio);
+        else if (orden === 'nombre') lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        const $grid = $('#productsGrid').empty();
+        if (lista.length === 0) {
+          $grid.html('<p class="no-results">No se encontraron productos 😢</p>');
+          return;
+        }
+        lista.forEach(p => {
+          const badgeHtml = p.badge ? `<span class="product-card__badge ${p.badge === 'SALE' ? 'product-card__badge--sale' : ''}">${p.badge}</span>` : '';
+          const antesHtml = p.antes ? `<small>Bs ${p.antes}</small>` : '';
+          const estrellas = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+          $grid.append(`
+            <article class="product-card" data-id="${p.id}">
+              <div class="product-card__media">
+                <i class="fa-solid ${p.icon}"></i>
+                ${badgeHtml}
+                <button class="product-card__fav" aria-label="Favorito"><i class="fa-regular fa-heart"></i></button>
+              </div>
+              <div class="product-card__body">
+                <span class="product-card__cat">${p.cat}</span>
+                <h3 class="product-card__name">${p.nombre}</h3>
+                <p class="product-card__desc">${p.desc}</p>
+                <div class="product-card__stars">${estrellas} <span>(${p.rating})</span></div>
+                <div class="product-card__footer">
+                  <span class="product-card__price">Bs ${p.precio} ${antesHtml}</span>
+                  <button class="add-cart" data-id="${p.id}" aria-label="Agregar al carrito"><i class="fa-solid fa-plus"></i></button>
+                </div>
+              </div>
+            </article>
+          `);
+        });
+      }
+
+      /* ============================================================
+         CARRITO
+         ============================================================ */
+      function guardarCarrito() { localStorage.setItem('glow_cart_bo', JSON.stringify(carrito)); }
+      function totalItems() { return carrito.reduce((s, it) => s + it.qty, 0); }
+      function totalPrecio() { return carrito.reduce((s, it) => s + it.precio * it.qty, 0); }
+      function actualizarContador() { $('#cartCount').text(totalItems()); }
+
+      function renderCarrito() {
+        const $items = $('#cartItems').empty();
+        if (carrito.length === 0) {
+          $items.html(`<div class="cart-empty"><i class="fa-solid fa-bag-shopping"></i>Tu carrito está vacío.<br>¡Agrega algo bonito!</div>`);
+        } else {
+          carrito.forEach(item => {
+            const prod = productos.find(p => p.id === item.id);
+            if (!prod) return;
+            $items.append(`
+              <div class="cart-item" data-id="${item.id}">
+                <div class="cart-item__icon"><i class="fa-solid ${prod.icon}"></i></div>
+                <div class="cart-item__info">
+                  <h4>${prod.nombre}</h4>
+                  <p>Bs ${item.precio} c/u</p>
+                  <div class="cart-item__qty">
+                    <button class="qty-minus" data-id="${item.id}">−</button>
+                    <span>${item.qty}</span>
+                    <button class="qty-plus" data-id="${item.id}">+</button>
+                  </div>
+                </div>
+                <button class="cart-item__remove" data-id="${item.id}" aria-label="Eliminar"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+            `);
+          });
+        }
+        $('#cartTotal').text('Bs ' + totalPrecio().toFixed(2));
+        $('#checkoutBtn').prop('disabled', carrito.length === 0);
+        actualizarContador();
+      }
+
+      function agregarAlCarrito(id) {
+        const prod = productos.find(p => p.id === id);
+        if (!prod) return;
+        const existente = carrito.find(it => it.id === id);
+        if (existente) existente.qty++;
+        else carrito.push({ id, precio: prod.precio, qty: 1 });
+        guardarCarrito(); renderCarrito();
+        mostrarToast(`${prod.nombre} agregado 🛍️`);
+      }
+
+      function mostrarToast(msg) {
+        $('#toastMsg').text(msg);
+        $('#toast').addClass('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => $('#toast').removeClass('show'), 2200);
+      }
+
+      /* ============================================================
+         CRITERIO 2: EFECTOS DE ANIMACIÓN con jQuery
+         ============================================================ */
+      $('#menuToggle').on('click', function () {
+        $('#mainNav').slideToggle(300);
+      });
+      $('#toggleCategorias').on('click', function () {
+        $('#categoriasContent').fadeToggle(400);
+      });
+      $('#mainNav a').on('click', function () {
+        if ($(window).width() <= 900) $('#mainNav').slideUp(300);
+      });
+
+      /* ============================================================
+         FILTROS
+         ============================================================ */
+      $('#categoryPills').on('click', '.pill', function () {
+        $('#categoryPills .pill').removeClass('active');
+        $(this).addClass('active');
+        categoriaActual = $(this).data('cat');
+        renderProductos();
+      });
+      $('#searchInput').on('input', function () {
+        busqueda = $(this).val();
+        renderProductos();
+      });
+      $('#sortSelect').on('change', function () {
+        orden = $(this).val();
+        renderProductos();
+      });
+
+      /* ============================================================
+         AGREGAR AL CARRITO
+         ============================================================ */
+      $('#productsGrid').on('click', '.add-cart', function (e) {
+        e.stopPropagation();
+        agregarAlCarrito(parseInt($(this).data('id')));
+      });
+      $('#productsGrid').on('click', '.product-card__fav', function (e) {
+        e.stopPropagation();
+        $(this).toggleClass('active');
+        const $icon = $(this).find('i');
+        if ($(this).hasClass('active')) $icon.removeClass('fa-regular').addClass('fa-solid');
+        else $icon.removeClass('fa-solid').addClass('fa-regular');
+      });
+
+      /* ============================================================
+         CARRITO: abrir / cerrar
+         ============================================================ */
+      function abrirCarrito() {
+        $('#cartOverlay').fadeIn(200);
+        $('#cartPanel').addClass('active');
+      }
+      function cerrarCarrito() {
+        $('#cartPanel').removeClass('active');
+        $('#cartOverlay').fadeOut(200);
+      }
+      $('#cartBtn').on('click', abrirCarrito);
+      $('#cartClose').on('click', cerrarCarrito);
+      $('#cartOverlay').on('click', cerrarCarrito);
+
+      /* ============================================================
+         CARRITO: modificar cantidades
+         ============================================================ */
+      $('#cartItems').on('click', '.qty-plus', function () {
+        const id = parseInt($(this).data('id'));
+        const item = carrito.find(it => it.id === id);
+        if (item) { item.qty++; guardarCarrito(); renderCarrito(); }
+      });
+      $('#cartItems').on('click', '.qty-minus', function () {
+        const id = parseInt($(this).data('id'));
+        const item = carrito.find(it => it.id === id);
+        if (!item) return;
+        item.qty--;
+        if (item.qty <= 0) carrito = carrito.filter(it => it.id !== id);
+        guardarCarrito(); renderCarrito();
+      });
+      $('#cartItems').on('click', '.cart-item__remove', function () {
+        const id = parseInt($(this).data('id'));
+        carrito = carrito.filter(it => it.id !== id);
+        guardarCarrito(); renderCarrito();
+      });
+
+      /* ============================================================
+         CHECKOUT
+         ============================================================ */
+      $('#checkoutBtn').on('click', function () {
+        if (carrito.length === 0) return;
+        let filas = '';
+        carrito.forEach(it => {
+          const p = productos.find(x => x.id === it.id);
+          filas += `<div><span>${p.nombre} x${it.qty}</span><span>Bs ${(it.precio * it.qty).toFixed(2)}</span></div>`;
+        });
+        filas += `<div><span>Total</span><span>Bs ${totalPrecio().toFixed(2)}</span></div>`;
+        $('#modalSummary').html(filas);
+        cerrarCarrito();
+        $('#checkoutModal').fadeIn(300).addClass('active');
+      });
+      $('#modalClose').on('click', function () {
+        $('#checkoutModal').fadeOut(300, function () { $(this).removeClass('active'); });
+      });
+      $('#checkoutModal').on('click', function (e) {
+        if (e.target === this) {
+          $(this).fadeOut(300, function () { $(this).removeClass('active'); });
+        }
+      });
+
+      /* ============================================================
+         CRITERIO 4: VALIDACIONES EN TIEMPO REAL
+         ============================================================ */
+      function validarEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+      function validarCampoContacto($input, $error, condicion, mensaje) {
+        if (condicion) {
+          $input.removeClass('invalid').addClass('valid');
+          $error.text('');
+          return true;
+        } else {
+          $input.removeClass('valid').addClass('invalid');
+          $error.text(mensaje);
+          return false;
+        }
+      }
+
+      $('#cName2').on('blur input', function () {
+        const v = $(this).val().trim();
+        validarCampoContacto($(this), $('#errName2'), v.length >= 2, 'Mínimo 2 caracteres.');
+      });
+      $('#cEmail2').on('blur input', function () {
+        const v = $(this).val().trim();
+        validarCampoContacto($(this), $('#errEmail2'), validarEmail(v), 'Ingresa un email válido.');
+      });
+      $('#cPhone2').on('blur input', function () {
+        const v = $(this).val().trim();
+        const digits = v.replace(/\D/g, '');
+        validarCampoContacto($(this), $('#errPhone2'), digits.length >= 8, 'Teléfono inválido (mín. 8 dígitos).');
+      });
+      $('#cCity').on('change', function () {
+        const v = $(this).val();
+        validarCampoContacto($(this), $('#errCity'), v !== '', 'Selecciona tu ciudad.');
+      });
+      $('#cMessage').on('blur input', function () {
+        const v = $(this).val().trim();
+        validarCampoContacto($(this), $('#errMessage'), v.length >= 10, 'Mínimo 10 caracteres.');
+      });
+
+      $('#contactForm').on('submit', function (e) {
+        e.preventDefault();
+        let valido = true;
+        const n = $('#cName2').val().trim();
+        const em = $('#cEmail2').val().trim();
+        const ph = $('#cPhone2').val().trim();
+        const city = $('#cCity').val();
+        const ms = $('#cMessage').val().trim();
+
+        if (n.length < 2) { $('#cName2').addClass('invalid'); $('#errName2').text('Mínimo 2 caracteres.'); valido = false; }
+        if (!validarEmail(em)) { $('#cEmail2').addClass('invalid'); $('#errEmail2').text('Ingresa un email válido.'); valido = false; }
+        if (ph.replace(/\D/g, '').length < 8) { $('#cPhone2').addClass('invalid'); $('#errPhone2').text('Teléfono inválido.'); valido = false; }
+        if (!city) { $('#cCity').addClass('invalid'); $('#errCity').text('Selecciona tu ciudad.'); valido = false; }
+        if (ms.length < 10) { $('#cMessage').addClass('invalid'); $('#errMessage').text('Mínimo 10 caracteres.'); valido = false; }
+
+        if (!valido) return;
+
+        mostrarToast(`✅ ¡Gracias ${n}! Mensaje enviado desde ${city}.`);
+        this.reset();
+        $('.form-group input, .form-group textarea, .form-group select').removeClass('valid invalid');
+        $('.form-error').text('');
+      });
+
+      /* ============================================================
+         VALIDACIÓN DEL CHECKOUT
+         ============================================================ */
+      $('#checkoutForm').on('submit', function (e) {
+        e.preventDefault();
+        let valido = true;
+        const nombre = $('#cName').val().trim();
+        const email = $('#cEmail').val().trim();
+        const ciudad = $('#cCity2').val();
+        const direccion = $('#cAddress').val().trim();
+        const telefono = $('#cPhone').val().trim();
+        const pago = $('#cPayment').val();
+
+        if (!nombre) { $('#errName').text('El nombre es obligatorio.'); $('#cName').addClass('invalid'); valido = false; }
+        else { $('#errName').text(''); $('#cName').removeClass('invalid').addClass('valid'); }
+
+        if (!email) { $('#errEmail').text('El email es obligatorio.'); $('#cEmail').addClass('invalid'); valido = false; }
+        else if (!validarEmail(email)) { $('#errEmail').text('Formato de email inválido.'); $('#cEmail').addClass('invalid'); valido = false; }
+        else { $('#errEmail').text(''); $('#cEmail').removeClass('invalid').addClass('valid'); }
+
+        if (!ciudad) { $('#errCity2').text('Selecciona tu ciudad.'); $('#cCity2').addClass('invalid'); valido = false; }
+        else { $('#errCity2').text(''); $('#cCity2').removeClass('invalid').addClass('valid'); }
+
+        if (!direccion) { $('#errAddress').text('La dirección es obligatoria.'); $('#cAddress').addClass('invalid'); valido = false; }
+        else { $('#errAddress').text(''); $('#cAddress').removeClass('invalid').addClass('valid'); }
+
+        if (telefono.replace(/\D/g, '').length < 8) { $('#errPhone').text('Teléfono inválido.'); $('#cPhone').addClass('invalid'); valido = false; }
+        else { $('#errPhone').text(''); $('#cPhone').removeClass('invalid').addClass('valid'); }
+
+        if (!pago) { $('#errPayment').text('Selecciona un método de pago.'); $('#cPayment').addClass('invalid'); valido = false; }
+        else { $('#errPayment').text(''); $('#cPayment').removeClass('invalid').addClass('valid'); }
+
+        if (!valido) return;
+
+        const numPedido = 'GB-BO-' + Date.now().toString(36).toUpperCase().slice(-6);
+        $('#checkoutModal').fadeOut(300, function () { $(this).removeClass('active'); });
+        mostrarToast(`✅ Pedido ${numPedido} confirmado. ¡Gracias ${nombre}!`);
+
+        carrito = [];
+        guardarCarrito(); renderCarrito();
+        this.reset();
+        $('.form-error').text('');
+        $('.form-group input, .form-group select').removeClass('invalid valid');
+      });
+
+      /* ============================================================
+         INICIALIZACIÓN
+         ============================================================ */
+      renderProductos();
+      renderCarrito();
+      $('#year').text(new Date().getFullYear());
+    });
+  </script>
+</body>
+</html>
