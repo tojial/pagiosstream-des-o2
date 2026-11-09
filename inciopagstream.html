@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ragnarok eSports | TikTok Live Shopping</title>
+  <style>
+    :root{--bg:#000;--bg-alt:#0f172a;--card:#0b1220;--border:#1e2a3f;--border-strong:#2a3a54;--neon:#00ff88;--text:#e6edf7;--text-dim:#8b9bb4;--danger:#ff4d6d;--radius:16px;--font:'Segoe UI',system-ui,-apple-system,sans-serif;--mono:'Consolas','Courier New',monospace}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font);background:radial-gradient(circle at 20% 0%,rgba(0,255,136,.06),transparent 40%),radial-gradient(circle at 90% 100%,rgba(0,255,136,.04),transparent 45%),var(--bg);color:var(--text);min-height:100vh;line-height:1.5;padding-bottom:40px}
+    .topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .topbar-left{display:flex;align-items:center;gap:10px;font-size:.95rem;letter-spacing:.5px}
+    .topbar-left em{font-style:normal;color:var(--neon)}
+    .live-dot{width:10px;height:10px;border-radius:50%;background:#ff2e55;box-shadow:0 0 10px #ff2e55;animation:blink 1.4s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    .topbar-badge{font-size:.65rem;font-weight:700;letter-spacing:1px;color:var(--neon);border:1px solid rgba(0,255,136,.5);background:rgba(0,255,136,.08);padding:3px 8px;border-radius:4px}
+    .viewers{font-size:.85rem;color:var(--text-dim)}
+    .layout{max-width:1280px;margin:24px auto;padding:0 20px;display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start}
+    .stream-column,.checkout-column{display:flex;flex-direction:column;gap:20px}
+    .live-container{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 0 40px rgba(0,255,136,.04);transition:border-color .3s,box-shadow .3s}
+    .live-container:hover{border-color:rgba(0,255,136,.25);box-shadow:0 0 50px rgba(0,255,136,.08)}
+    .video-stage{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#0a1322 0%,#050a14 100%);border-bottom:1px solid var(--border);display:grid;place-items:center}
+    .video-overlay{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+    .live-badge{font-size:.7rem;font-weight:700;letter-spacing:1px;color:#fff;background:#ff2e55;padding:4px 10px;border-radius:4px;box-shadow:0 0 14px rgba(255,46,85,.6)}
+    .stream-title{font-size:.8rem;color:var(--text-dim);background:rgba(0,0,0,.6);padding:4px 10px;border-radius:4px}
+    .video-placeholder{text-align:center;color:var(--text-dim)}
+    .video-icon{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;border:1px solid rgba(0,255,136,.4);color:var(--neon);font-size:1.4rem;margin-bottom:10px;box-shadow:0 0 20px rgba(0,255,136,.2) inset}
+    .video-placeholder p{font-size:.85rem}
+    .live-actions{padding:18px;border-bottom:1px solid var(--border)}
+    .actions-title{font-size:.9rem;margin-bottom:12px;letter-spacing:.5px}
+    .products-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+    .product-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--text);cursor:pointer;font-family:var(--font);transition:transform .25s,border-color .25s,box-shadow .25s}
+    .product-btn:hover{transform:translateY(-4px);border-color:rgba(0,255,136,.5);box-shadow:0 8px 24px rgba(0,255,136,.15)}
+    .product-btn:active{transform:translateY(-1px) scale(.98)}
+    .product-btn.flash{animation:flashNeon .6s ease}
+    @keyframes flashNeon{0%{box-shadow:0 0 0 rgba(0,255,136,0)}50%{box-shadow:0 0 30px rgba(0,255,136,.8);border-color:var(--neon)}100%{box-shadow:0 0 0 rgba(0,255,136,0)}}
+    .prod-emoji{font-size:1.5rem}.prod-name{font-size:.78rem;color:var(--text-dim);text-align:center}.prod-price{font-size:.9rem;font-weight:700;color:var(--neon)}
+    .like-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,46,85,.1);border:1px solid rgba(255,46,85,.4);border-radius:999px;color:#ff5a7a;font-size:.85rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:transform .2s,box-shadow .2s,background .2s}
+    .like-btn:hover{background:rgba(255,46,85,.2);box-shadow:0 0 18px rgba(255,46,85,.4);transform:scale(1.04)}
+    .like-btn.pulse-like .heart{animation:heartPop .4s ease}
+    @keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+    .like-count{background:rgba(255,46,85,.25);padding:1px 8px;border-radius:999px;font-size:.75rem}
+    .chat-box{padding:18px}
+    .chat-label{display:block;font-size:.8rem;font-weight:600;margin-bottom:8px}
+    .chat-input{width:100%;padding:12px 14px;background:#060a12;border:1px solid var(--border-strong);border-radius:10px;color:var(--text);font-size:.9rem;font-family:var(--font);transition:border-color .25s,box-shadow .25s}
+    .chat-input:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,255,136,.12),0 0 18px rgba(0,255,136,.2)}
+    .chat-hint{display:block;font-size:.72rem;color:var(--text-dim);margin-top:6px}
+    .log-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+    .log-panel--day2{border-color:rgba(0,255,136,.18)}
+    .log-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.3)}
+    .log-header h3{font-size:.85rem;letter-spacing:.5px}
+    .log-tag{font-size:.65rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--neon);border:1px solid rgba(0,255,136,.4);padding:2px 8px;border-radius:4px}
+    .log-tag--alt{color:#4db8ff;border-color:rgba(77,184,255,.4)}
+    .log-output{font-family:var(--mono);font-size:.78rem;line-height:1.6;padding:12px 16px;max-height:260px;overflow-y:auto;color:var(--text-dim);background:#05080f}
+    .log-output:empty::before{content:"Esperando eventos...";color:#3d4d66;font-style:italic}
+    .log-line{padding:3px 0;border-bottom:1px dashed rgba(255,255,255,.04);animation:logIn .3s ease}
+    @keyframes logIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+    .log-time{color:var(--neon);margin-right:6px}.log-type{color:#4db8ff;font-weight:700;margin-right:6px}
+    .log-line--success{color:var(--neon)}.log-line--warn{color:#ffb84d}.log-line--error{color:var(--danger)}
+    .checkout-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.4);position:relative}
+    .checkout-title{font-size:1.1rem;margin-bottom:4px}
+    .checkout-sub{font-size:.8rem;color:var(--text-dim);margin-bottom:18px}
+    .order-form{display:flex;flex-direction:column;gap:14px}
+    .form-group{display:flex;flex-direction:column;gap:6px}
+    .form-group label{font-size:.8rem;font-weight:600}
+    .form-group input,.form-group select{width:100%;padding:11px 14px;background:#060a12;border:1px solid var(--border-strong);border-radius:10px;color:var(--text);font-size:.88rem;font-family:var(--font);transition:border-color .25s,box-shadow .25s;appearance:none;-webkit-appearance:none}
+    .form-group select{background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2300ff88' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+    .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,255,136,.12),0 0 16px rgba(0,255,136,.18)}
+    .form-group input.invalid,.form-group select.invalid{border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,77,109,.12)}
+    .error-msg{font-size:.72rem;color:var(--danger);min-height:12px}
+    .btn-checkout{width:100%;padding:13px;margin-top:4px;background:var(--neon);color:#001b10;border:none;border-radius:10px;font-size:.95rem;font-weight:700;font-family:var(--font);letter-spacing:.5px;cursor:pointer;transition:transform .2s,box-shadow .3s,background .3s;box-shadow:0 0 14px rgba(0,255,136,.35)}
+    .btn-checkout:hover{background:#00ff9d;transform:translateY(-2px);box-shadow:0 0 24px rgba(0,255,136,.85),0 0 50px rgba(0,255,136,.35)}
+    .btn-checkout:active{transform:translateY(0) scale(.98)}
+    .order-success{display:none;padding:12px;border-radius:10px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.4);color:var(--neon);font-size:.82rem;font-weight:600;text-align:center;animation:fadeIn .4s ease}
+    .order-success.show{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .footer{text-align:center;padding:30px 20px 10px;color:var(--text-dim);font-size:.8rem;border-top:1px solid var(--border);max-width:1280px;margin:20px auto 0}
+    .log-output::-webkit-scrollbar{width:8px}.log-output::-webkit-scrollbar-track{background:#05080f}
+    .log-output::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:4px}
+    .log-output::-webkit-scrollbar-thumb:hover{background:var(--neon)}
+
+    /* ============================================================
+       MÓDULO: CALENDARIO DE STREAMS FUTUROS
+       ============================================================ */
+    .calendar-module{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:4px}
+    .calendar-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .calendar-header h3{font-size:1rem;color:var(--text);letter-spacing:.5px}
+    .calendar-select{padding:9px 34px 9px 14px;background:#060a12;border:1px solid var(--border-strong);border-radius:10px;color:var(--text);font-size:.85rem;font-family:var(--font);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2300ff88' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .25s,box-shadow .25s}
+    .calendar-select:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,255,136,.12),0 0 16px rgba(0,255,136,.2)}
+    .future-calendar-output{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+    .calendar-empty{grid-column:1/-1;text-align:center;font-size:.85rem;color:var(--text-dim);padding:20px}
+
+    /* Tarjetas de partido del calendario (reutilizan estilos base) */
+    .match-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:16px;transition:transform .25s,border-color .25s,box-shadow .25s;display:flex;flex-direction:column}
+    .match-card:hover{transform:translateY(-3px);border-color:rgba(0,255,136,.35);box-shadow:0 8px 24px rgba(0,255,136,.12)}
+    .match-card[data-status="live"]{border-color:rgba(0,255,136,.5);box-shadow:0 0 20px rgba(0,255,136,.15)}
+    .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap}
+    .game-badge{font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--border-strong)}
+    .game-badge.valorant{color:#ff5a5f;border-color:rgba(255,90,95,.4)}
+    .game-badge.cs2{color:#ffb84d;border-color:rgba(255,184,77,.4)}
+    .game-badge.lol{color:#4db8ff;border-color:rgba(77,184,255,.4)}
+    .status-tag{font-size:.68rem;font-weight:600;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px}
+    .status-tag.live{color:var(--neon);background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.5);box-shadow:0 0 12px rgba(0,255,136,.3)}
+    .status-tag.upcoming{color:var(--text-dim);background:rgba(255,255,255,.04);border:1px solid var(--border-strong)}
+    .status-tag.finished{color:#888;background:rgba(255,255,255,.03);border:1px solid var(--border)}
+    .pulse{width:7px;height:7px;border-radius:50%;background:var(--neon);animation:pulseDot 1.2s infinite}
+    @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(0,255,136,.7)}70%{box-shadow:0 0 0 7px rgba(0,255,136,0)}100%{box-shadow:0 0 0 0 rgba(0,255,136,0)}}
+    .match-title{font-size:1rem;font-weight:700;margin-bottom:4px}
+    .match-phase{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+    .match-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--text-dim);margin-top:auto}
+    .match-time{color:var(--neon);font-weight:600}
+    .match-score{margin-left:auto;font-weight:700;color:var(--text);background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.3);padding:2px 8px;border-radius:6px;font-size:.75rem}
+
+    @media(max-width:960px){.layout{grid-template-columns:1fr}}
+    @media(max-width:520px){.topbar{padding:12px 16px}.topbar-left{font-size:.82rem;gap:6px}.layout{padding:0 14px;margin:16px auto;gap:16px}.live-actions,.chat-box{padding:14px}.products-row{grid-template-columns:repeat(2,1fr)}.checkout-card{padding:18px}.log-output{font-size:.72rem}.calendar-header{flex-direction:column;align-items:stretch}.calendar-select{width:100%}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="live-dot"></span>
+      <strong>RAGNAROK <em>eSports</em></strong>
+      <span class="topbar-badge">EN VIVO</span>
+    </div>
+    <div class="topbar-right"><span class="viewers">👁️ <span id="viewerCount">12.4K</span></span></div>
+  </header>
+
+  <main class="layout">
+    <section class="stream-column">
+      <div id="liveContainer" class="live-container" aria-label="Contenedor del live">
+        <div class="video-stage">
+          <div class="video-overlay">
+            <span class="live-badge">● LIVE</span>
+            <span class="stream-title">Game Day · Ofertas exclusivas</span>
+          </div>
+          <div class="video-placeholder"><span class="video-icon">▶</span><p>Stream de Ragnarok eSports</p></div>
+        </div>
+        <div class="live-actions">
+          <h3 class="actions-title">⚡ Productos Relámpago</h3>
+          <div class="products-row">
+            <button class="product-btn" data-prod="Jersey Ragnarok 2025" data-price="45"><span class="prod-emoji">👕</span><span class="prod-name">Jersey Ragnarok</span><span class="prod-price">$45</span></button>
+            <button class="product-btn" data-prod="Mousepad XL Valhalla" data-price="25"><span class="prod-emoji">🖱️</span><span class="prod-name">Mousepad XL</span><span class="prod-price">$25</span></button>
+            <button class="product-btn" data-prod="Gorra Edición Limitada" data-price="18"><span class="prod-emoji">🧢</span><span class="prod-name">Gorra Limitada</span><span class="prod-price">$18</span></button>
+            <button class="product-btn" data-prod="Taza Gamer Ragnarok" data-price="12"><span class="prod-emoji">☕</span><span class="prod-name">Taza Gamer</span><span class="prod-price">$12</span></button>
+          </div>
+          <button class="like-btn" data-action="like" aria-label="Dar like"><span class="heart">❤️</span><span>Dar Like</span><span id="likeCount" class="like-count">0</span></button>
+        </div>
+        <div class="chat-box">
+          <label for="chatInput" class="chat-label">💬 Chat del Live</label>
+          <input type="text" id="chatInput" class="chat-input" placeholder="Escribe tu mensaje y presiona una tecla..." maxlength="120" autocomplete="off" />
+          <small class="chat-hint">Los eventos se registran en la bitácora del Día 1.</small>
+        </div>
+      </div>
+
+      <section class="log-panel">
+        <div class="log-header"><h3>📋 Bitácora · Día 1</h3><span class="log-tag">Bubbling &amp; Delegación</span></div>
+        <div id="LogOutput" class="log-output" aria-live="polite"></div>
+      </section>
+
+      <!-- ============================================================
+           NUEVO: CALENDARIO DE STREAMS FUTUROS
+           ============================================================ -->
+      <section class="calendar-module" aria-labelledby="calendarTitle">
+        <div class="calendar-header">
+          <h3 id="calendarTitle">📅 Próximas Transmisiones</h3>
+          <select id="calendarSelect" class="calendar-select" aria-label="Seleccionar semana de transmisiones"></select>
+        </div>
+        <div id="futureCalendarOutput" class="future-calendar-output" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <aside class="checkout-column">
+      <section class="checkout-card">
+        <h2 class="checkout-title">🛒 Checkout Rápido</h2>
+        <p class="checkout-sub">Completa tu pedido durante el live</p>
+        <form id="orderForm" class="order-form" novalidate>
+          <div class="form-group">
+            <label for="userTikTok">Usuario de TikTok</label>
+            <input type="text" id="userTikTok" name="userTikTok" placeholder="@tuusuario" autocomplete="off" />
+            <small class="error-msg" id="userError"></small>
+          </div>
+          <div class="form-group">
+            <label for="variantSelect">Variante / Combo</label>
+            <select id="variantSelect" name="variantSelect">
+              <option value="" disabled selected>Selecciona un combo</option>
+              <option value="Jersey + Gorra · $55">Jersey + Gorra · $55</option>
+              <option value="Mousepad + Taza · $32">Mousepad + Taza · $32</option>
+              <option value="Pack Full Ragnarok · $89">Pack Full Ragnarok · $89</option>
+              <option value="Solo Jersey · $45">Solo Jersey · $45</option>
+            </select>
+            <small class="error-msg" id="variantError"></small>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" />
+          </div>
+          <button type="submit" class="btn-checkout">Confirmar Pedido</button>
+          <div id="orderSuccess" class="order-success" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="log-panel log-panel--day2">
+        <div class="log-header"><h3>📋 Bitácora · Día 2</h3><span class="log-tag log-tag--alt">Change &amp; Submit</span></div>
+        <div id="logDia2" class="log-output" aria-live="polite"></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="footer"><p>© 2025 Ragnarok eSports · TikTok Live Shopping Demo</p></footer>
+
+  <script>
+    function getLocalTime(){const n=new Date();const p=x=>String(x).padStart(2,'0');return `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;}
+    function logEvent(c,type,msg,variant=''){if(!c)return;const l=document.createElement('div');l.className=`log-line ${variant?'log-line--'+variant:''}`;l.innerHTML=`<span class="log-time">[${getLocalTime()}]</span><span class="log-type">${type}</span><span class="log-msg">${msg}</span>`;c.prepend(l);while(c.children.length>50)c.removeChild(c.lastChild);}
+
+    const liveContainer=document.getElementById('liveContainer');
+    const chatInput=document.getElementById('chatInput');
+    const likeCountEl=document.getElementById('likeCount');
+    const logOutput=document.getElementById('LogOutput');
+    const logDia2=document.getElementById('logDia2');
+    const variantSelect=document.getElementById('variantSelect');
+    const orderForm=document.getElementById('orderForm');
+    const userTikTok=document.getElementById('userTikTok');
+    const quantityInput=document.getElementById('quantity');
+    const userError=document.getElementById('userError');
+    const variantError=document.getElementById('variantError');
+    const orderSuccess=document.getElementById('orderSuccess');
+    let likeCounter=0;
+
+    liveContainer.addEventListener('click',(e)=>{
+      const productBtn=e.target.closest('[data-prod]');
+      if(productBtn){
+        const name=productBtn.dataset.prod,price=productBtn.dataset.price;
+        productBtn.classList.add('flash');setTimeout(()=>productBtn.classList.remove('flash'),600);
+        logEvent(logOutput,'CLICK',`Producto relámpago: "${name}" ($${price})`,'success');
+        const combo=Array.from(variantSelect.options).find(o=>o.value.toLowerCase().includes(name.split(' ')[0].toLowerCase()));
+        if(combo){variantSelect.value=combo.value;variantSelect.dispatchEvent(new Event('change',{bubbles:true}));}
+        return;
+      }
+      const likeBtn=e.target.closest('[data-action="like"]');
+      if(likeBtn){
+        likeCounter++;likeCountEl.textContent=likeCounter;
+        likeBtn.classList.add('pulse-like');setTimeout(()=>likeBtn.classList.remove('pulse-like'),400);
+        logEvent(logOutput,'CLICK',`Like enviado · Total: ${likeCounter}`,'success');
+        return;
+      }
+      const tag=e.target.tagName.toLowerCase();
+      if(tag!=='input'&&tag!=='select')logEvent(logOutput,'CLICK',`Clic en <${tag}> dentro del live`,'');
+    });
+
+    chatInput.addEventListener('keyup',(e)=>{
+      const value=chatInput.value.trim();
+      if(['Shift','Control','Alt','Meta','CapsLock','Tab'].includes(e.key))return;
+      if(e.key==='Enter'){logEvent(logOutput,'KEYUP',`Enter presionado · Mensaje: "${value||'(vacío)'}"`,'success');chatInput.value='';return;}
+      logEvent(logOutput,'KEYUP',value===''?`Tecla "${e.key}" · input vacío`:`Tecla "${e.key}" · escribiendo: "${value}"`);
+    });
+
+    variantSelect.addEventListener('change',(e)=>{
+      if(!e.target.value)return;
+      logEvent(logDia2,'CHANGE',`Variante seleccionada: "${e.target.value}"`,'success');
+      variantError.textContent='';variantSelect.classList.remove('invalid');
+    });
+
+    orderForm.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const userValue=userTikTok.value.trim();
+      const tiktokRegex=/^@[A-Za-z0-9._]{2,24}$/;
+      let isValid=true;
+      if(userValue===''){userError.textContent='El usuario de TikTok es obligatorio.';userTikTok.classList.add('invalid');isValid=false;}
+      else if(!tiktokRegex.test(userValue)){userError.textContent='Formato inválido. Ejemplo: @ragnarok_fan';userTikTok.classList.add('invalid');isValid=false;}
+      else{userError.textContent='';userTikTok.classList.remove('invalid');}
+      const variantValue=variantSelect.value;
+      if(!variantValue){variantError.textContent='Selecciona una variante o combo.';variantSelect.classList.add('invalid');isValid=false;}
+      else{variantError.textContent='';variantSelect.classList.remove('invalid');}
+      if(!isValid){logEvent(logDia2,'SUBMIT','Pedido rechazado · datos incompletos o inválidos','error');return;}
+      const quantity=parseInt(quantityInput.value,10)||1;
+      const id='TX-'+Date.now().toString(36).toUpperCase();
+      const pm=variantValue.match(/\$(\d+)/);const unit=pm?parseInt(pm[1],10):0;const total=unit*quantity;
+      const tx={id,user:userValue,variant:variantValue,quantity,total,timestamp:new Date().toISOString()};
+      logEvent(logDia2,'SUBMIT',`✅ Pedido ${id} confirmado · ${tx.user} · ${tx.variant} x${tx.quantity} · Total: $${tx.total}`,'success');
+      orderSuccess.textContent=`¡Pedido confirmado, ${tx.user}! Recibirás ${tx.variant} x${tx.quantity} por $${tx.total}. ID: ${tx.id}`;
+      orderSuccess.classList.add('show');
+      console.log('🟢 Transacción confirmada:',tx);
+      orderForm.reset();quantityInput.value=1;
+      clearTimeout(window.__ragnarokOrderTimer);
+      window.__ragnarokOrderTimer=setTimeout(()=>orderSuccess.classList.remove('show'),7000);
+    });
+
+    userTikTok.addEventListener('input',()=>{
+      if(userTikTok.classList.contains('invalid')){
+        const v=userTikTok.value.trim();
+        if(v!==''&&/^@[A-Za-z0-9._]{2,24}$/.test(v)){userError.textContent='';userTikTok.classList.remove('invalid');}
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded',()=>{
+      logEvent(logOutput,'INIT','Bitácora Día 1 conectada · escuchando bubbling','success');
+      logEvent(logDia2,'INIT','Bitácora Día 2 conectada · change & submit listos','success');
+    });
+
+    /* ============================================================
+       MÓDULO: CALENDARIO DE STREAMS FUTUROS
+       ============================================================ */
+    const calendarSelect=document.getElementById('calendarSelect');
+    const futureCalendarOutput=document.getElementById('futureCalendarOutput');
+
+    const calendariosFuturos = {
+
+      /* ============ SEMANA 1 · FASE DE GRUPOS ============ */
+      semana1: {
+        titulo: 'Semana 1 · Fase de Grupos',
+        partidos: [
+          { juego:'Valorant', rival:'Spirits', hora:'19:00', dia:'Sáb · 12 Jul', fase:'Fase de Grupos · Bo3', estado:'finished', marcador:'2 - 1' },
+          { juego:'CS2',      rival:'Monkez',  hora:'21:30', dia:'Dom · 13 Jul', fase:'Fase de Grupos · Bo1', estado:'finished', marcador:'1 - 0' },
+          { juego:'LoL',      rival:'Titans',  hora:'18:00', dia:'Lun · 14 Jul', fase:'Fase de Grupos · Bo3', estado:'finished', marcador:'1 - 2' },
+          { juego:'Valorant', rival:'Frost',   hora:'20:00', dia:'Mar · 15 Jul', fase:'Fase de Grupos · Bo3', estado:'live' },
+          { juego:'CS2',      rival:'Nexus',   hora:'22:00', dia:'Mié · 16 Jul', fase:'Fase de Grupos · Bo1', estado:'upcoming' },
+          { juego:'LoL',      rival:'Vortex',  hora:'18:30', dia:'Jue · 17 Jul', fase:'Fase de Grupos · Bo3', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 2 · FASE DE GRUPOS ============ */
+      semana2: {
+        titulo: 'Semana 2 · Fase de Grupos',
+        partidos: [
+          { juego:'Valorant', rival:'Phantom', hora:'19:00', dia:'Sáb · 19 Jul', fase:'Fase de Grupos · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Ravens',  hora:'21:00', dia:'Dom · 20 Jul', fase:'Fase de Grupos · Bo1', estado:'upcoming' },
+          { juego:'LoL',      rival:'Dragons', hora:'18:00', dia:'Lun · 21 Jul', fase:'Fase de Grupos · Bo3', estado:'upcoming' },
+          { juego:'Valorant', rival:'Shadows', hora:'20:30', dia:'Mar · 22 Jul', fase:'Fase de Grupos · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Blaze',   hora:'22:30', dia:'Mié · 23 Jul', fase:'Fase de Grupos · Bo1', estado:'upcoming' },
+          { juego:'LoL',      rival:'Wolves',  hora:'19:00', dia:'Jue · 24 Jul', fase:'Fase de Grupos · Bo3', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 3 · ÚLTIMA CHANCE ============ */
+      semana3: {
+        titulo: 'Semana 3 · Última Chance',
+        partidos: [
+          { juego:'Valorant', rival:'Spirits', hora:'20:00', dia:'Sáb · 26 Jul', fase:'Last Chance · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Monkez',  hora:'22:00', dia:'Dom · 27 Jul', fase:'Last Chance · Bo1', estado:'upcoming' },
+          { juego:'LoL',      rival:'Titans',  hora:'19:00', dia:'Lun · 28 Jul', fase:'Last Chance · Bo3', estado:'upcoming' },
+          { juego:'Valorant', rival:'Frost',   hora:'21:00', dia:'Mar · 29 Jul', fase:'Last Chance · Bo3', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 4 · CUARTOS DE FINAL ============ */
+      semana4: {
+        titulo: 'Semana 4 · Cuartos de Final',
+        partidos: [
+          { juego:'Valorant', rival:'Nexus',   hora:'19:00', dia:'Sáb · 02 Ago', fase:'Cuartos de Final · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Vortex',  hora:'21:30', dia:'Dom · 03 Ago', fase:'Cuartos de Final · Bo3', estado:'upcoming' },
+          { juego:'LoL',      rival:'Phantom', hora:'18:00', dia:'Lun · 04 Ago', fase:'Cuartos de Final · Bo5', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 5 · SEMIFINALES ============ */
+      semana5: {
+        titulo: 'Semana 5 · Semifinales',
+        partidos: [
+          { juego:'Valorant', rival:'Ravens',  hora:'20:00', dia:'Sáb · 09 Ago', fase:'Semifinal · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Dragons', hora:'22:00', dia:'Dom · 10 Ago', fase:'Semifinal · Bo3', estado:'upcoming' },
+          { juego:'LoL',      rival:'Shadows', hora:'19:00', dia:'Lun · 11 Ago', fase:'Semifinal · Bo5', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 6 · GRAN FINAL ============ */
+      semana6: {
+        titulo: 'Semana 6 · Gran Final',
+        partidos: [
+          { juego:'Valorant', rival:'Blaze',  hora:'18:00', dia:'Sáb · 16 Ago', fase:'Gran Final · Bo5', estado:'upcoming' },
+          { juego:'CS2',      rival:'Wolves', hora:'20:30', dia:'Dom · 17 Ago', fase:'Gran Final · Bo5', estado:'upcoming' },
+          { juego:'LoL',      rival:'Titans', hora:'19:00', dia:'Lun · 18 Ago', fase:'Gran Final · Bo5', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 7 · PRETEMPORADA ============ */
+      semana7: {
+        titulo: 'Semana 7 · Pretemporada',
+        partidos: [
+          { juego:'Valorant', rival:'Academy',   hora:'17:00', dia:'Sáb · 23 Ago', fase:'Pretemporada · Showmatch', estado:'upcoming' },
+          { juego:'CS2',      rival:'Rookies',   hora:'19:00', dia:'Dom · 24 Ago', fase:'Pretemporada · Bo1', estado:'upcoming' },
+          { juego:'LoL',      rival:'Prospects', hora:'18:00', dia:'Lun · 25 Ago', fase:'Pretemporada · Bo3', estado:'upcoming' },
+          { juego:'Valorant', rival:'Legacy',    hora:'20:00', dia:'Mar · 26 Ago', fase:'Pretemporada · Bo3', estado:'upcoming' }
+        ]
+      },
+
+      /* ============ SEMANA 8 · CLASIFICATORIO INTERNACIONAL ============ */
+      semana8: {
+        titulo: 'Semana 8 · Clasificatorio Internacional',
+        partidos: [
+          { juego:'Valorant', rival:'T1 Academy',    hora:'16:00', dia:'Sáb · 30 Ago', fase:'Clasificatorio · Bo3', estado:'upcoming' },
+          { juego:'CS2',      rival:'Fnatic Rising', hora:'18:30', dia:'Dom · 31 Ago', fase:'Clasificatorio · Bo3', estado:'upcoming' },
+          { juego:'LoL',      rival:'Cloud9 Acad.',  hora:'20:00', dia:'Lun · 01 Sep', fase:'Clasificatorio · Bo5', estado:'upcoming' },
+          { juego:'Valorant', rival:'Sentinels',     hora:'22:00', dia:'Mar · 02 Sep', fase:'Clasificatorio · Bo3', estado:'upcoming' }
+        ]
+      }
+
+    };
+
+    /* Renderiza las tarjetas de la semana seleccionada */
+    function renderizarCalendario(semanaKey){
+      if(!futureCalendarOutput) return;
+      const semana = calendariosFuturos[semanaKey];
+      if(!semana){
+        futureCalendarOutput.innerHTML = '<p class="calendar-empty">No hay transmisiones para esta semana.</p>';
+        return;
+      }
+      const cardsHTML = semana.partidos.map(p=>{
+        const gameClass = p.juego.toLowerCase()==='lol' ? 'lol' : p.juego.toLowerCase()==='cs2' ? 'cs2' : 'valorant';
+        const statusClass = p.estado==='live' ? 'live' : p.estado==='finished' ? 'finished' : 'upcoming';
+        const statusText = p.estado==='live' ? '<span class="pulse"></span>En vivo' : p.estado==='finished' ? 'Finalizado' : 'Próximamente';
+        const scoreHTML = p.marcador ? `<span class="match-score">${p.marcador}</span>` : '';
+        return `
+          <article class="match-card" data-status="${p.estado}">
+            <div class="card-top">
+              <span class="game-badge ${gameClass}">${p.juego}</span>
+              <span class="status-tag ${statusClass}">${statusText}</span>
+            </div>
+            <h3 class="match-title">Ragnarok vs. ${p.rival}</h3>
+            <p class="match-phase">${p.fase}</p>
+            <div class="match-meta">
+              <span class="match-time">🕒 ${p.hora}</span>
+              <span class="match-date">${p.dia}</span>
+              ${scoreHTML}
+            </div>
+          </article>`;
+      }).join('');
+
+      futureCalendarOutput.style.opacity='0';
+      futureCalendarOutput.style.transform='translateY(8px)';
+      requestAnimationFrame(()=>{
+        futureCalendarOutput.innerHTML = cardsHTML;
+        futureCalendarOutput.style.transition='opacity .35s ease, transform .35s ease';
+        futureCalendarOutput.style.opacity='1';
+        futureCalendarOutput.style.transform='translateY(0)';
+      });
+    }
+
+    /* Llena el <select> desde el arreglo */
+    function populateSelect(){
+      if(!calendarSelect) return;
+      calendarSelect.innerHTML = Object.entries(calendariosFuturos)
+        .map(([key,val])=>`<option value="${key}">${val.titulo}</option>`)
+        .join('');
+    }
+
+    /* Listener change + render inicial */
+    if(calendarSelect && futureCalendarOutput){
+      populateSelect();
+      calendarSelect.addEventListener('change',(e)=>{
+        const semanaKey = e.target.value;
+        const semanaLabel = e.target.options[e.target.selectedIndex]?.text || semanaKey;
+        renderizarCalendario(semanaKey);
+        logEvent(logDia2,'CHANGE',`Calendario cambiado → "${semanaLabel}"`,'success');
+      });
+      renderizarCalendario(calendarSelect.value);
+    }
+  </script>
+</body>
+</html>
